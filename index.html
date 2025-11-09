@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <title>Palvelimen aika</title>
+</head>
+<body>
+    <h1>Palvelimen aika:</h1>
+    <div id="server-time">Ladataan...</div>
+
+    <script>
+        async function fetchServerTime() {
+            try {
+                const response = await fetch('get_time.php');
+                const data = await response.json();
+                document.getElementById('server-time').textContent = data.time || 'Ei saatavilla';
+            } catch (error) {
+                document.getElementById('server-time').textContent = 'Virhe haettaessa aikaa';
+            }
+        }
+
+        fetchServerTime();
+        setInterval(fetchServerTime, 10000); // Päivitä 10 sekunnin välein
+    </script>
+</body>
+</html>
